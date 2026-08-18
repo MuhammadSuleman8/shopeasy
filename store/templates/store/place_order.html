@@ -1,0 +1,54 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Place Order - ShopEasy{% endblock %}
+
+{% block extra_css %}
+.page-title { font-size: 28px; font-weight: bold; color: #1a1a6e; margin-bottom: 1.5rem; }
+.order-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.order-form { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.order-summary { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); height: fit-content; }
+.form-title { font-size: 18px; font-weight: bold; margin-bottom: 1.5rem; color: #1a1a6e; }
+label { display: block; margin-bottom: 6px; color: #555; font-size: 14px; }
+textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; outline: none; resize: vertical; min-height: 120px; }
+textarea:focus { border-color: #1a1a6e; }
+.summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; }
+.summary-total { display: flex; justify-content: space-between; font-size: 20px; font-weight: bold; color: #1a1a6e; border-top: 2px solid #eee; padding-top: 1rem; margin-top: 1rem; }
+@media(max-width:600px){ .order-container { grid-template-columns: 1fr; } }
+{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">📦 Order Place Karen</h1>
+
+<div class="order-container">
+
+  <!-- Form -->
+  <div class="order-form">
+    <div class="form-title">Delivery Address</div>
+    <form method="POST">
+      {% csrf_token %}
+      <label>Apna pura address likhen:</label>
+      <textarea name="address" placeholder="Ghar ka number, gali, shehar, province..." required></textarea>
+      <br><br>
+      <button type="submit" class="btn btn-success" style="width:100%; font-size:16px; padding:14px;">✓ Order Confirm Karen</button>
+    </form>
+  </div>
+
+  <!-- Summary -->
+  <div class="order-summary">
+    <div class="form-title">Order Summary</div>
+    {% for item in items %}
+    <div class="summary-row">
+      <span>{{ item.product.name }} x{{ item.quantity }}</span>
+      <span>Rs. {{ item.get_subtotal }}</span>
+    </div>
+    {% endfor %}
+    <div class="summary-total">
+      <span>Total</span>
+      <span>Rs. {{ total }}</span>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

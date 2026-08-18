@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Login - ShopEasy{% endblock %}
+
+{% block extra_css %}
+.auth-container { max-width: 450px; margin: 2rem auto; background: white; border-radius: 16px; padding: 2.5rem; box-shadow: 0 2px 16px rgba(0,0,0,0.1); }
+.auth-title { font-size: 28px; font-weight: bold; color: #1a1a6e; text-align: center; margin-bottom: 0.5rem; }
+.auth-subtitle { text-align: center; color: #888; font-size: 14px; margin-bottom: 2rem; }
+.form-group { margin-bottom: 1.25rem; }
+label { display: block; margin-bottom: 6px; color: #555; font-size: 14px; font-weight: bold; }
+input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; outline: none; }
+input:focus { border-color: #1a1a6e; }
+.auth-link { text-align: center; margin-top: 1.5rem; font-size: 14px; color: #888; }
+.auth-link a { color: #1a1a6e; font-weight: bold; text-decoration: none; }
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+  <div class="auth-title">👋 Login Karen</div>
+  <div class="auth-subtitle">ShopEasy mein khush aamdeed!</div>
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Apna username likhen" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Apna password likhen" required>
+    </div>
+    <button type="submit" class="btn btn-primary" style="width:100%; font-size:16px; padding:14px;">Login</button>
+  </form>
+
+  <div class="auth-link">
+    Account nahi hai? <a href="{% url 'register' %}">Register Karen</a>
+  </div>
+</div>
+
+{% endblock %}
